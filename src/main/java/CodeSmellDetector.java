@@ -13,8 +13,13 @@ public class CodeSmellDetector {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         CompilationUnit cu = JavaParser.parse(in);
         cu.accept(new LongMethodDetector(), null);
+        cu.accept(new LargeClassBasicDetector(), null);
+        cu.accept(new LongParameterListDetector(), null);
+        cu.accept(new SwitchStatementDetector(), null);
+
 
 
     }
