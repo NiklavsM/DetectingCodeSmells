@@ -9,7 +9,7 @@ public class LargeClassBasicDetector extends VoidVisitorAdapter<Void> {
 
         int classStatements = Helper.countStatements(n.getChildNodes());
 
-        System.out.println("classStatementsss " + classStatements);
+//        System.out.println("classStatementsss " + classStatements);
         if (classStatements > 100) {
             System.out.println("\""+ n.getName() + "\" class is too large");
         }

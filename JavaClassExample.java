@@ -266,51 +266,52 @@ public class JavaClassExample {
 //            }
 //        }
 //    }
-    class SwitchEnumTest {
-        int test = 324;
-
-        public void test() {
-            if (true) {
-                test = 1;
-                test = 2;
-                test = 3;
-            } else {
-                test = 1;
-                test = 2;
-                test = 3;
-            }
-            if (true) {
-                test = 1;
-            }
-            class InsideClass {
-                enum enums {
-                    ENUM1, ENUM2;
-                }
-                int test = 200;
-                enums switchVariable = enums.ENUM1;
-
-                public void opaa() {
-                    test = 100;
-
-                    switch (switchVariable) {
-                        case (enums.ENUM1):
-                            test = 101;
-
-                        case (enums.ENUM2):
-                            test = 102;
-
-                    }
-                }
-            }
-            class InsideClass2 {
-                int test = 200;
-
-                public void opaa() {
-                    test = 100;
-                }
-            }
-        }
-    }
+//    class SwitchEnumTest {
+//        int test = 324;
+//
+//        public void test() {
+//            if (true) {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            } else {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            }
+//            if (true) {
+//                test = 1;
+//            }
+//            class InsideClass {
+//                enum enums {
+//                    ENUM1, ENUM2;
+//                }
+//
+//                int test = 200;
+//                enums switchVariable = enums.ENUM1;
+//
+//                public void opaa() {
+//                    test = 100;
+//
+//                    switch (switchVariable) {
+//                        case (enums.ENUM1):
+//                            test = 101;
+//
+//                        case (enums.ENUM2):
+//                            test = 102;
+//
+//                    }
+//                }
+//            }
+//            class InsideClass2 {
+//                int test = 200;
+//
+//                public void opaa() {
+//                    test = 100;
+//                }
+//            }
+//        }
+//    }
 
 //    class DataClass{
 //
@@ -330,5 +331,32 @@ public class JavaClassExample {
 //        }
 //
 //    }
+
+    class PrimitiveObsession {
+        int i1;
+        int i2 = 0;
+        int i3 = 0;
+        int i4 = 0;
+        int i5 = 0;
+        int i6 = 0;
+        int i7 = 0;
+        int i8 = 0;
+        int i9 = 0;
+        int i10 = 0;
+        int i11 = 0;
+
+        public void testMethod() {
+            boolean bool1 = true;
+            boolean bool2, bool3, bool4, bool5, bool6, bool7 = true;
+            boolean bool8;
+            boolean bool9;
+            boolean bool10;
+            boolean bool11;
+            if(bool1){
+                int int1 = 1;
+            }
+
+        }
+    }
 
 }

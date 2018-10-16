@@ -24,8 +24,8 @@ public class SwitchStatementDetector extends VoidVisitorAdapter<Void> {
         for (Node node : nodes) {
 //            System.out.println("Node " + node.getClass().getName());
             if (node instanceof SwitchStmt) {
-                System.out.println("SwitchStmt " + node.toString());
-                System.out.println("SwitchStmt selector " + (((SwitchStmt)node).getSelector()).getClass().getName());
+//                System.out.println("SwitchStmt " + node.toString());
+//                System.out.println("SwitchStmt selector " + (((SwitchStmt)node).getSelector()).getClass().getName());
 
                 return true;
             }
