@@ -312,4 +312,23 @@ public class JavaClassExample {
         }
     }
 
+//    class DataClass{
+//
+//        int data1 = 0;
+//
+//        public DataClass(int int1,int int2,int int3,int int4,int int5,int int6){
+//
+//        }
+//
+//        public int getData1() {
+//            System.out.println("someother stuff");
+//            return data1;
+//        }
+//
+//        public void setData1(int data1) {
+//            this.data1 = data1;
+//        }
+//
+//    }
+
 }

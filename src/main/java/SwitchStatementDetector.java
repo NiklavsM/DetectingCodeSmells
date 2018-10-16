@@ -15,6 +15,7 @@ public class SwitchStatementDetector extends VoidVisitorAdapter<Void> {
         if (findSwitchStatements(n.getChildNodes())) {
             System.out.println("Method \"" + n.getName() + "\" is using switch statement, is it really necessary?");
         }
+
         //     System.out.println("Method: " + n.getName() + " has too many parameters");
 
     }
@@ -23,8 +24,9 @@ public class SwitchStatementDetector extends VoidVisitorAdapter<Void> {
         for (Node node : nodes) {
 //            System.out.println("Node " + node.getClass().getName());
             if (node instanceof SwitchStmt) {
-//                System.out.println("SwitchStmt " + node.toString());
-//                System.out.println("SwitchStmt selector " + ((NameExpr)((SwitchStmt)node).getSelector()).);
+                System.out.println("SwitchStmt " + node.toString());
+                System.out.println("SwitchStmt selector " + (((SwitchStmt)node).getSelector()).getClass().getName());
+
                 return true;
             }
             if (findSwitchStatements(node.getChildNodes())) {
