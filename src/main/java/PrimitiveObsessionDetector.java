@@ -47,11 +47,10 @@ public class PrimitiveObsessionDetector extends VoidVisitorAdapter<Void> {
     }
 
     private class VariableDeclaratorCounter extends VoidVisitorAdapter<Void> {
-        int count = 0;
+        private int count = 0;
 
         @Override
         public void visit(VariableDeclarator n, Void args) {
-            System.out.println(" VariableDeclarator " + n.getName());
             count++;
         }
 

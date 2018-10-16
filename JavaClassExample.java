@@ -148,22 +148,31 @@ public class JavaClassExample {
 //    }
 
 
-// class MethodClassTest {
-//     int test = 324;
+//    class MethodClassTest {
+//        int test = 324;
 //
-//     public void test() {
-//         if (true) {
-//             test = 1;
-//             test = 2;
-//             test = 3;
-//         }else {
-//             test = 1;
-//             test = 2;
-//             test = 3;
-//         }
-//         if (true) {
-//             test = 1;
-//         }
+//        public void test() {
+//            if (true) {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            } else {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            }
+//            if (true) {
+//                test = 1;
+//            }
+//            for (int i = 0; i < 10; i++) {
+//                test = 4;
+//            }
+//            switch (test) {
+//                case 1:
+//                    test = 2;
+//                case 2:
+//                    test = 1;
+//            }
 //         class InsideClass {
 //             int test = 200;
 //
@@ -178,8 +187,8 @@ public class JavaClassExample {
 //                 test = 100;
 //             }
 //         }
-//     }
-// }
+//        }
+//    }
 
     //    class LongClassTest {
 //        int test = 324;
@@ -332,31 +341,35 @@ public class JavaClassExample {
 //
 //    }
 
-    class PrimitiveObsession {
-        int i1;
-        int i2 = 0;
-        int i3 = 0;
-        int i4 = 0;
-        int i5 = 0;
-        int i6 = 0;
-        int i7 = 0;
-        int i8 = 0;
-        int i9 = 0;
-        int i10 = 0;
-        int i11 = 0;
+//    class PrimitiveObsession {
+//        int i1;
+//        int i2 = 0;
+//        int i3 = 0;
+//        int i4 = 0;
+//        int i5 = 0;
+//        int i6 = 0;
+//        int i7 = 0;
+//        int i8 = 0;
+//        int i9 = 0;
+//        int i10 = 0;
+//        int i11 = 0;
+//
+//        public void testMethod() {
+//            boolean bool1 = true;
+//            boolean bool2, bool3, bool4, bool5, bool6, bool7 = true;
+//            boolean bool8;
+//            boolean bool9;
+//            boolean bool10;
+//            boolean bool11;
+//            if(bool1){
+//                int int1 = 1;
+//            }
+//
+//        }
+//    }
 
-        public void testMethod() {
-            boolean bool1 = true;
-            boolean bool2, bool3, bool4, bool5, bool6, bool7 = true;
-            boolean bool8;
-            boolean bool9;
-            boolean bool10;
-            boolean bool11;
-            if(bool1){
-                int int1 = 1;
-            }
-
-        }
+    class MessageChainTest(){
+        
     }
 
 }

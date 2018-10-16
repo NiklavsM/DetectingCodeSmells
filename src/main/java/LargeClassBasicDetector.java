@@ -1,18 +1,17 @@
+import SupportClasses.StatementCounter;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
-
-import java.util.Optional;
 
 public class LargeClassBasicDetector extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(ClassOrInterfaceDeclaration n, Void arg) {
 
-        int classStatements = Helper.countStatements(n.getChildNodes());
-
-//        System.out.println("classStatementsss " + classStatements);
-        if (classStatements > 100) {
-            System.out.println("\""+ n.getName() + "\" class is too large");
+        StatementCounter sc = new StatementCounter();
+        n.accept(sc, null);
+        int statementCount = sc.getCount() - 1; // -1 not to count class declaration itself
+        if (statementCount > 100) {
+            System.out.println("Class: " + n.getName() + " is too long. I has " + statementCount + " statements.");
         }
-        super.visit(n, arg);
+        super.visit(n,arg);
     }
 }

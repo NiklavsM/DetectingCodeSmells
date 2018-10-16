@@ -43,11 +43,11 @@ class CodeSmellDetector {
     }
 
     private void searchForSmells(CompilationUnit cu) {
-//        cu.accept(new LongMethodDetector(), null);
-//        cu.accept(new LargeClassBasicDetector(), null);
+        cu.accept(new LongMethodDetector(), null);
+        cu.accept(new LargeClassBasicDetector(), null);
 //        cu.accept(new LongParameterListDetector(), null);
 //        cu.accept(new SwitchStatementDetector(), null);
 //        cu.accept(new DataClassDetector(), null);
-        cu.accept(new PrimitiveObsessionDetector(), null);
+//        cu.accept(new PrimitiveObsessionDetector(), null);
     }
 }
