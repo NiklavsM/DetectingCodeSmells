@@ -8,10 +8,12 @@ class CodeSmellDetector {
 
     void run() {
         File dir = new File("C:/Users/Niklavs/Documents/IntelliJProjects/CS409TestSystem/src");
-        File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\src\\main\\java\\SupportClasses\\JavaClassExample.java");
+//        File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\src\\main\\java\\SupportClasses\\JavaClassExampleMAIN.java");
+        File oneFile = new File("C:/Users/Niklavs/Documents/IntelliJProjects/CS409TestSystem/src/Couplers/MessageChainsBetter/Client.java");
+
         try {
-//            parseFilesInDir(dir);
-            parseFile(oneFile);
+            parseFilesInDir(dir);
+//            parseFile(oneFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -45,8 +47,8 @@ class CodeSmellDetector {
 //        cu.accept(new LargeClassBasicDetector(), null);
 //        cu.accept(new LongParameterListDetector(), null);
 //        cu.accept(new SwitchStatementDetector(), null);
-//        cu.accept(new DataClassDetector(), null);
+        cu.accept(new DataClassDetector(), null);
 //        cu.accept(new PrimitiveObsessionDetector(), null);
-        cu.accept(new MessageChainsDetector(), null);
+//        cu.accept(new MessageChainsDetector(), null);
     }
 }

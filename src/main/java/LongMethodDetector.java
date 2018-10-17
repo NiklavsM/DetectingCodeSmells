@@ -15,7 +15,7 @@ public class LongMethodDetector extends VoidVisitorAdapter<Void> {
 
             int statementCount = sc.getCount();
             if (statementCount > 10) {
-                System.out.println("Method: " + n.getName() + " is too long. I has " + statementCount + " statements.");
+                System.out.println("Method: " + n.getName() + " is too long. It has " + statementCount + " statements.");
             }
         }
     }
