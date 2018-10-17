@@ -1,8 +1,14 @@
-//Mike Scott
+package SupportClasses;//Mike Scott
 //examples of array manipulations
 
 public class JavaClassExample {
-//	public static void main(String[] args)
+    enum options {
+        ENUM1, ENUM2;
+    }
+    public static void main(String[] args) {
+    }
+
+
 //{	int[] list = {1, 2, 3, 4, 1, 2, 3};
 //    findAndPrintPairs(list, 5);
 //    bubblesort(list);
@@ -275,52 +281,51 @@ public class JavaClassExample {
 //            }
 //        }
 //    }
-//    class SwitchEnumTest {
-//        int test = 324;
-//
-//        public void test() {
-//            if (true) {
-//                test = 1;
-//                test = 2;
-//                test = 3;
-//            } else {
-//                test = 1;
-//                test = 2;
-//                test = 3;
-//            }
-//            if (true) {
-//                test = 1;
-//            }
-//            class InsideClass {
-//                enum enums {
-//                    ENUM1, ENUM2;
-//                }
-//
-//                int test = 200;
-//                enums switchVariable = enums.ENUM1;
-//
-//                public void opaa() {
-//                    test = 100;
-//
-//                    switch (switchVariable) {
-//                        case (enums.ENUM1):
-//                            test = 101;
-//
-//                        case (enums.ENUM2):
-//                            test = 102;
-//
-//                    }
-//                }
-//            }
-//            class InsideClass2 {
-//                int test = 200;
-//
-//                public void opaa() {
-//                    test = 100;
-//                }
-//            }
-//        }
-//    }
+    class SwitchEnumTest {
+
+        int test = 324;
+
+        public void test() {
+            if (true) {
+                test = 1;
+                test = 2;
+                test = 3;
+            } else {
+                test = 1;
+                test = 2;
+                test = 3;
+            }
+            if (true) {
+                test = 1;
+            }
+            class InsideClass {
+
+
+                int test = 200;
+                options switchVariable = options.ENUM1;
+
+                public void opaa() {
+                    test = 100;
+
+                    switch (switchVariable) {
+                        case ENUM1 :
+                            test = 101;
+
+                        case ENUM2:
+                            test = 102;
+
+                    }
+                }
+            }
+            class InsideClass2 {
+                int test = 200;
+
+                public void opaa() {
+                    test = 100;
+                }
+            }
+        }
+    }
 
 //    class DataClass{
 //
@@ -355,6 +360,7 @@ public class JavaClassExample {
 //        int i11 = 0;
 //
 //        public void testMethod() {
+//            ArrayList notPrimitive;
 //            boolean bool1 = true;
 //            boolean bool2, bool3, bool4, bool5, bool6, bool7 = true;
 //            boolean bool8;
@@ -368,8 +374,19 @@ public class JavaClassExample {
 //        }
 //    }
 
-    class MessageChainTest(){
-        
-    }
+//    class MessageChainTest {
+//        class FirstClass {
+//            String string1 = "Test";
+//
+//            public FirstClass() {
+//                test1();
+//            }
+//
+//            public void test1() {
+//                boolean b;
+//                b = string1.toString().toString().toString().equals("asd");
+//            }
+//        }
+//    }
 
 }

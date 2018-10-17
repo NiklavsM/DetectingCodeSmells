@@ -51,7 +51,9 @@ public class PrimitiveObsessionDetector extends VoidVisitorAdapter<Void> {
 
         @Override
         public void visit(VariableDeclarator n, Void args) {
-            count++;
+            if (n.getType().isPrimitiveType()) {
+                count++;
+            }
         }
 
         int getCount() {

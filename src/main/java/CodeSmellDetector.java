@@ -8,7 +8,7 @@ class CodeSmellDetector {
 
     void run() {
         File dir = new File("C:/Users/Niklavs/Documents/IntelliJProjects/CS409TestSystem/src");
-        File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\JavaClassExample.java");
+        File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\src\\main\\java\\SupportClasses\\JavaClassExample.java");
         try {
 //            parseFilesInDir(dir);
             parseOneFile(oneFile);
@@ -43,11 +43,12 @@ class CodeSmellDetector {
     }
 
     private void searchForSmells(CompilationUnit cu) {
-        cu.accept(new LongMethodDetector(), null);
-        cu.accept(new LargeClassBasicDetector(), null);
+//        cu.accept(new LongMethodDetector(), null);
+//        cu.accept(new LargeClassBasicDetector(), null);
 //        cu.accept(new LongParameterListDetector(), null);
-//        cu.accept(new SwitchStatementDetector(), null);
+        cu.accept(new SwitchStatementDetector(), null);
 //        cu.accept(new DataClassDetector(), null);
 //        cu.accept(new PrimitiveObsessionDetector(), null);
+//        cu.accept(new MessageChainsDetector(), null);
     }
 }
