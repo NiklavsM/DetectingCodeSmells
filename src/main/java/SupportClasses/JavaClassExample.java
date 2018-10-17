@@ -5,6 +5,7 @@ public class JavaClassExample {
     enum options {
         ENUM1, ENUM2;
     }
+
     public static void main(String[] args) {
     }
 
@@ -281,51 +282,59 @@ public class JavaClassExample {
 //            }
 //        }
 //    }
-    class SwitchEnumTest {
-
-        int test = 324;
-
-        public void test() {
-            if (true) {
-                test = 1;
-                test = 2;
-                test = 3;
-            } else {
-                test = 1;
-                test = 2;
-                test = 3;
-            }
-            if (true) {
-                test = 1;
-            }
-            class InsideClass {
-
-
-                int test = 200;
-                options switchVariable = options.ENUM1;
-
-                public void opaa() {
-                    test = 100;
-
-                    switch (switchVariable) {
-                        case ENUM1 :
-                            test = 101;
-
-                        case ENUM2:
-                            test = 102;
-
-                    }
-                }
-            }
-            class InsideClass2 {
-                int test = 200;
-
-                public void opaa() {
-                    test = 100;
-                }
-            }
-        }
-    }
+//    class SwitchEnumTest {
+//
+//        int test = 324;
+//
+//        public void test() {
+//            if (true) {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            } else {
+//                test = 1;
+//                test = 2;
+//                test = 3;
+//            }
+//            if (true) {
+//                test = 1;
+//            }
+//            class InsideClass {
+//
+//
+//                int test = 200;
+//                options switchVariable, switchVariable2 = options.ENUM1;
+//
+//                public void opaa() {
+//                    test = 100;
+//
+//                    switch (switchVariable) {
+//                        case ENUM1:
+//                            test = 101;
+//
+//                        case ENUM2:
+//                            test = 102;
+//
+//                    }
+//                    switch (switchVariable2) {
+//                        case ENUM1:
+//                            test = 101;
+//
+//                        case ENUM2:
+//                            test = 102;
+//
+//                    }
+//                }
+//            }
+//            class InsideClass2 {
+//                int test = 200;
+//
+//                public void opaa() {
+//                    test = 100;
+//                }
+//            }
+//        }
+//    }
 
 //    class DataClass{
 //
@@ -374,19 +383,19 @@ public class JavaClassExample {
 //        }
 //    }
 
-//    class MessageChainTest {
-//        class FirstClass {
-//            String string1 = "Test";
-//
-//            public FirstClass() {
-//                test1();
-//            }
-//
-//            public void test1() {
-//                boolean b;
-//                b = string1.toString().toString().toString().equals("asd");
-//            }
-//        }
-//    }
+    class MessageChainTest {
+        class FirstClass {
+            String string1 = "Test";
+
+            public FirstClass() {
+                test1();
+            }
+
+            public void test1() {
+                boolean b;
+                b = string1.toString().toString().toString().equals("asd");
+            }
+        }
+    }
 
 }

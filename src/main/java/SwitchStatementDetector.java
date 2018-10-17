@@ -40,7 +40,6 @@ public class SwitchStatementDetector extends VoidVisitorAdapter<Void> {
     private boolean checkIfTypeIsEnum(Node parentNode, String name) {
         for (Node node : parentNode.getChildNodes()) {
             if (node instanceof EnumDeclaration) {
-                System.out.println(((EnumDeclaration) node).getName() + "     O    " + name);
                 if (((EnumDeclaration) node).getName().toString().equals(name)) {
                     return true;
                 }

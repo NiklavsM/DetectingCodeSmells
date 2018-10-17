@@ -11,7 +11,7 @@ class CodeSmellDetector {
         File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\src\\main\\java\\SupportClasses\\JavaClassExample.java");
         try {
 //            parseFilesInDir(dir);
-            parseOneFile(oneFile);
+            parseFile(oneFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -23,10 +23,7 @@ class CodeSmellDetector {
         if (directoryListing != null) {
             for (File child : directoryListing) {
                 if (child.isFile()) {
-                    System.out.println("===================================");
-                    System.out.println("File being analysed: " + child.getName());
-                    searchForSmells(JavaParser.parse(child));
-                    System.out.println("===================================");
+                    parseFile(child);
                 } else {
                     parseFilesInDir(child);
                 }
@@ -34,10 +31,11 @@ class CodeSmellDetector {
         }
     }
 
-    private void parseOneFile(File child) throws FileNotFoundException {
+    private void parseFile(File file) throws FileNotFoundException {
         System.out.println("===================================");
-        System.out.println("File being analysed: " + child.getName());
-        searchForSmells(JavaParser.parse(child));
+        System.out.println("File being analysed: " + file.getName());
+        System.out.println("-----------------------------------");
+        searchForSmells(JavaParser.parse(file));
         System.out.println("===================================");
 
     }
@@ -46,9 +44,9 @@ class CodeSmellDetector {
 //        cu.accept(new LongMethodDetector(), null);
 //        cu.accept(new LargeClassBasicDetector(), null);
 //        cu.accept(new LongParameterListDetector(), null);
-        cu.accept(new SwitchStatementDetector(), null);
+//        cu.accept(new SwitchStatementDetector(), null);
 //        cu.accept(new DataClassDetector(), null);
 //        cu.accept(new PrimitiveObsessionDetector(), null);
-//        cu.accept(new MessageChainsDetector(), null);
+        cu.accept(new MessageChainsDetector(), null);
     }
 }
