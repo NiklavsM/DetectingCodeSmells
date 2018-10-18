@@ -4,26 +4,31 @@ import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import java.awt.*;
+import java.util.LinkedList;
 
 public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
 
-
+    private LinkedList<String> messageChanins = new LinkedList<String>();
     @Override
     public void visit(MethodCallExpr n, Void args) {
-        NodeList<Expression> arguments = n.getArguments();
+        if (countMethodChain(n) > 2 && notPresent(n.toString())) {
+            System.out.println("MethodChain detected : " + n.toString());
+            messageChanins.add(n.toString());
+        }
+        super.visit(n, args);
+    }
+
+    private int countMethodChain(MethodCallExpr n) {
+
         int count = 1;
         for (Node child : n.getChildNodes()) {
             if (child instanceof MethodCallExpr) {
-                if (notArgument(arguments, child.toString())) {
-                    count += countMethodChain((MethodCallExpr) child, 0);
+                if (notArgument(n.getArguments(), child.toString())) {
+                    count += countMethodChain((MethodCallExpr) child);
                 }
             }
         }
-        if (count > 2) {
-            System.out.println("MethodChain detected : " + n.toString());
-        }
-        super.visit(n, args);
+        return count;
     }
 
     private boolean notArgument(NodeList<Expression> args, String maybeArg) {
@@ -33,19 +38,11 @@ public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
         return true;
     }
 
-    private int countMethodChain(MethodCallExpr n, int count) {
-        
-        count++;
-        for (Node child : n.getChildNodes()) {
-//            System.out.println("child2 " + child.getClass().getName() + "  " + child.toString() + " " + count);
-            if (child instanceof MethodCallExpr) {
-                if (notArgument(n.getArguments(), child.toString())) {
-//                    System.out.println("child3 " + child.getClass().getName() + "  " + count);
-                    count +=countMethodChain((MethodCallExpr) child, count);
-                }
-            }
+    private boolean notPresent(String potentialChain){
+        for(String chain: messageChanins){
+            if(chain.contains(potentialChain)) return false;
         }
-        return count;
+        return true;
     }
 
 }
