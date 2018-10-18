@@ -39,14 +39,18 @@ public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
     }
 
     class MethodChainCounter extends VoidVisitorAdapter<Void> {
+
+
         @Override
         public void visit(MethodCallExpr n, Void args) {
 //            System.out.println("HERE " + n.getName());
             int count = 1;
             for (Node child : n.getChildNodes()) {
 //                System.out.println("child " + child.toString());
-                if (countMethodChain(child, count) > 2) {
-                    System.out.println("MethodChain detected : " + n.toString());
+                if (child instanceof MethodCallExpr) {
+                    if (countMethodChain(child, count) > 2) {
+                        System.out.println("MethodChain detected : " + n.toString());
+                    }
                 }
             }
             super.visit(n, args);
@@ -55,7 +59,7 @@ public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
         private int countMethodChain(Node node, int count) {
             count++;
             for (Node child : node.getChildNodes()) {
-                System.out.println("child2 " + child.getClass().getName() + "  " + child.toString());
+                System.out.println("child2 " + child.getClass().getName() + "  " + child.toString() + " " + count);
                 if (child instanceof MethodCallExpr) {
 //                    System.out.println("child2 " + child.getClass().getName() + "  " + count);
                     return countMethodChain(child, count);

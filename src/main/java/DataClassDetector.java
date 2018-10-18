@@ -11,9 +11,11 @@ import java.util.Optional;
 public class DataClassDetector extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(ClassOrInterfaceDeclaration n, Void arg) {
-        if (!n.isInterface() && !n.isAbstract()) {
-            if (isDataClass(n)) {
-                System.out.println("Class \"" + n.getName() + "\" looks like a data class");
+        if (n.getFields().size() > 0) {
+            if (!n.isInterface() && !n.isAbstract()) {
+                if (isDataClass(n)) {
+                    System.out.println("Class \"" + n.getName() + "\" looks like a data class");
+                }
             }
         }
         super.visit(n, arg);

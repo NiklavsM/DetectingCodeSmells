@@ -336,23 +336,23 @@ public class JavaClassExampleMAIN {
 //        }
 //    }
 
-    class DataClass{
-
-        String data1 = "sad";
-
-        public DataClass(int int1,int int2,int int3,int int4,int int5,int int6){
-
-        }
-
-        public String getData1() {
-            return data1.concat("asd" + "asddsa");
-        }
-
-        public void setData1(String data1) {
-            this.data1 = data1;
-        }
-
-    }
+//    class DataClass{
+//
+//        String data1 = "sad";
+//
+//        public DataClass(int int1,int int2,int int3,int int4,int int5,int int6){
+//
+//        }
+//
+//        public String getData1() {
+//            return data1.concat("asd" + "asddsa");
+//        }
+//
+//        public void setData1(String data1) {
+//            this.data1 = data1;
+//        }
+//
+//    }
 
 //    class PrimitiveObsession {
 //        int i1;
@@ -382,19 +382,20 @@ public class JavaClassExampleMAIN {
 //        }
 //    }
 
-//    class MessageChainTest {
-//        class FirstClass {
-//            String string1 = "Test";
-//
-//            public FirstClass() {
-//                test1();
-//            }
-//
-//            public void test1() {
-//                boolean b;
-//                b = string1.toString().toString().toString().toLowerCase().toUpperCase().equals(string1.toUpperCase());
-//            }
-//        }
-//    }
+    class MessageChainTest {
+        class FirstClass {
+            String string1 = "Test";
+            String string2 = "Test";
+
+            public FirstClass() {
+                test1();
+            }
+
+            public void test1() {
+                boolean b;
+                b = string1.toString().toString().equals(string2.toUpperCase());
+            }
+        }
+    }
 
 }
