@@ -1,73 +1,51 @@
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.expr.AssignExpr;
+import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.expr.Expression;
 import com.github.javaparser.ast.expr.MethodCallExpr;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import java.util.List;
+import java.awt.*;
 
 public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
+
+
     @Override
-    public void visit(MethodDeclaration n, Void arg) {
-//        loopThroughNodes(n.getChildNodes());
-
-        MethodChainCounter mcc = new MethodChainCounter();
-        n.accept(mcc, null);
-
-//        MethodChainDetectedCounter mcd = new MethodChainDetectedCounter();
-//        n.accept(mcd, null);
-//        super.visit(n, arg);
-
+    public void visit(MethodCallExpr n, Void args) {
+        NodeList<Expression> arguments = n.getArguments();
+        int count = 1;
+        for (Node child : n.getChildNodes()) {
+            if (child instanceof MethodCallExpr) {
+                if (notArgument(arguments, child.toString())) {
+                    count += countMethodChain((MethodCallExpr) child, 0);
+                }
+            }
+        }
+        if (count > 2) {
+            System.out.println("MethodChain detected : " + n.toString());
+        }
+        super.visit(n, args);
     }
 
-    private boolean detectMessageChaining() {
+    private boolean notArgument(NodeList<Expression> args, String maybeArg) {
+        for (Expression arg : args) {
+            if (arg.toString().equals(maybeArg)) return false;
+        }
         return true;
     }
 
-    public void loopThroughNodes(List<Node> nodes) {
-        for (Node node : nodes) {
-            System.out.println(node.getClass().getName());
-            if (node instanceof AssignExpr) {
-
-            }
-            if (node instanceof MethodCallExpr) {
-                ((MethodCallExpr) node).getParentNode().ifPresent(node1 -> System.out.println("WOOOW  " + ((MethodCallExpr) node).getName()));
-            }
-            loopThroughNodes(node.getChildNodes());
-
-        }
-    }
-
-    class MethodChainCounter extends VoidVisitorAdapter<Void> {
-
-
-        @Override
-        public void visit(MethodCallExpr n, Void args) {
-//            System.out.println("HERE " + n.getName());
-            int count = 1;
-            for (Node child : n.getChildNodes()) {
-//                System.out.println("child " + child.toString());
-                if (child instanceof MethodCallExpr) {
-                    if (countMethodChain(child, count) > 2) {
-                        System.out.println("MethodChain detected : " + n.toString());
-                    }
+    private int countMethodChain(MethodCallExpr n, int count) {
+        
+        count++;
+        for (Node child : n.getChildNodes()) {
+//            System.out.println("child2 " + child.getClass().getName() + "  " + child.toString() + " " + count);
+            if (child instanceof MethodCallExpr) {
+                if (notArgument(n.getArguments(), child.toString())) {
+//                    System.out.println("child3 " + child.getClass().getName() + "  " + count);
+                    count +=countMethodChain((MethodCallExpr) child, count);
                 }
             }
-            super.visit(n, args);
         }
-
-        private int countMethodChain(Node node, int count) {
-            count++;
-            for (Node child : node.getChildNodes()) {
-                System.out.println("child2 " + child.getClass().getName() + "  " + child.toString() + " " + count);
-                if (child instanceof MethodCallExpr) {
-//                    System.out.println("child2 " + child.getClass().getName() + "  " + count);
-                    return countMethodChain(child, count);
-                }
-            }
-            return count;
-        }
-
+        return count;
     }
 
 }
