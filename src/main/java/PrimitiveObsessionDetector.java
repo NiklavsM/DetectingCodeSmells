@@ -11,53 +11,45 @@ public class PrimitiveObsessionDetector extends VoidVisitorAdapter<Void> {
 
     @Override
     public void visit(ClassOrInterfaceDeclaration n, Void args) {
-        int primitiveCount;
-        primitiveCount = countPrimitiveVariables(n.getChildNodes());
-        if (primitiveCount > 10) { //TODO what number. Also should we care about parameters
-            System.out.println("Class: \"" + n.getName() + "\" is obsessed with primitives. Primitive cound: " + primitiveCount);
+        VariableCounter vc = new VariableCounter();
+        n.accept(vc, null);
+        double ratio = vc.getPrimitives()/vc.getVariables();
+        if (vc.getPrimitives()> 5 && ratio > 0.5) {
+            System.out.println("Class: \"" + n.getName() + "\" is obsessed with primitives. Primitive percentage: " + ratio);
         }
         super.visit(n, args);
     }
 
-    @Override
-    public void visit(MethodDeclaration n, Void args) {
-        VariableDeclaratorCounter vdc = new VariableDeclaratorCounter();
-        n.accept(vdc, null);
-        if (vdc.getCount() > 8) { //TODO what number. Also should we care about parameters
-            System.out.println("Method: \"" + n.getName() + "\" is obsessed with primitives. Primitive cound: " + vdc.getCount());
-        }
-    }
+//    @Override
+//    public void visit(MethodDeclaration n, Void args) {
+//        VariableCounter pc = new VariableCounter();
+//        n.accept(pc, null);
+//        if (pc.getCount() > 8) { //TODO what number. Also should we care about parameters
+//            System.out.println("Method: \"" + n.getName() + "\" is obsessed with primitives. Primitive cound: " + vdc.getCount());
+//        }
+//    }
 
-    private int countPrimitiveVariables(List<Node> nodes) {
-        int primitiveFieldCount = 0;
-        for (Node node : nodes) {
-            if (node instanceof FieldDeclaration) {
-                primitiveFieldCount += countPrimitiveVariables(node.getChildNodes());
-            }
-            if (node instanceof VariableDeclarator) {
-                if (((VariableDeclarator) node).getType().isPrimitiveType()) {
-                    primitiveFieldCount++;
-                }
-            }
-
-        }
-        return primitiveFieldCount;
-
-
-    }
-
-    private class VariableDeclaratorCounter extends VoidVisitorAdapter<Void> {
-        private int count = 0;
+    private class VariableCounter extends VoidVisitorAdapter<Void> {
+        private double primitiveCount = 0;
+        private double variableCount = 0;
 
         @Override
         public void visit(VariableDeclarator n, Void args) {
             if (n.getType().isPrimitiveType()) {
-                count++;
+                primitiveCount++;
+                System.out.println("Primitive: " + n.getName());
+            }else{
+                System.out.println("Not primitive count: " + n.getName());
             }
+            variableCount++;
         }
 
-        int getCount() {
-            return count;
+        double getVariables() {
+            return variableCount;
+        }
+
+        double getPrimitives() {
+            return primitiveCount;
         }
     }
 
