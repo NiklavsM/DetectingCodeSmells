@@ -10,7 +10,7 @@ public class PrimitiveObsessionDetector extends VoidVisitorAdapter<Void> {
         n.accept(va, null);
 
         double ratio = va.getPrimitives() / va.getVariables();
-        if (va.getPrimitives() > 5 && ratio > 0.5) {
+        if (va.getPrimitives() > 5 && ratio > 0.7) {
             System.out.println("Method: \"" + n.getName() + "\" is obsessed with primitives. Primitive percentage: " + String.format("%.2f", ratio * 100) + "%");
         }
         super.visit(n, args);
