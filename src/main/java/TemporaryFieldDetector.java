@@ -1,36 +1,49 @@
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.javaparser.ast.body.FieldDeclaration;
-import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.VariableDeclarator;
+import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
+
     @Override
     public void visit(ClassOrInterfaceDeclaration n, Void args) {
         for (FieldDeclaration field : n.getFields()) {
-            for (VariableDeclarator variable : field.getVariables()) {
-                CountFieldUsed cfu = new CountFieldUsed(variable);
-                n.accept(cfu, null);
-                System.out.println("Variable : " + variable.getName() + "   " + cfu.getFieldUsedInMethods());
+            if (!field.isStatic()) {
+                for (VariableDeclarator variable : field.getVariables()) {
+                    checkIfTemporaryField(n, variable);
+                }
             }
         }
         super.visit(n, args);
     }
 
-    class CountFieldUsed extends VoidVisitorAdapter<Void> {
+    private void checkIfTemporaryField(ClassOrInterfaceDeclaration n, VariableDeclarator field) {
+        AnalyseFieldUsage afu = new AnalyseFieldUsage(field);
+        n.accept(afu, null);
+        if (!afu.usedInConstructor()) {
+            int timesUsed = afu.getFieldUsedInMethods();
+            if (timesUsed < 2) {
+                if (timesUsed == 1) {
+                    System.out.println("Field : " + field.getName() + " could be turned into local variable (Temporary field)");
+                } else {
+                    System.out.println("Field : " + field.getName() + " is not used");
+                }
 
-        private VariableDeclarator field;
+            }
+        }
+    }
+
+    class AnalyseFieldUsage extends VoidVisitorAdapter<Void> {
+
         private int fieldUsedInMethods = 0;
+        private boolean usedInConstructor = false;
+        private VariableDeclarator field;
 
-        public CountFieldUsed(VariableDeclarator field) {
-            this.field = field;
+        AnalyseFieldUsage(VariableDeclarator f) {
+            field = f;
         }
 
         @Override
@@ -42,7 +55,19 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
                 }
 
             }
+        }
 
+        @Override
+        public void visit(ConstructorDeclaration n, Void args) {
+            usedInConstructor = fieldUsed(n.getChildNodes());
+        }
+
+        private boolean usedInConstructor() {
+            return usedInConstructor;
+        }
+
+        private int getFieldUsedInMethods() {
+            return fieldUsedInMethods;
         }
 
         private boolean fieldUsed(List<Node> children) {
@@ -57,9 +82,6 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
             return false;
         }
 
-        private int getFieldUsedInMethods() {
-            return fieldUsedInMethods;
-        }
-
     }
+
 }
