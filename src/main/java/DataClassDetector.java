@@ -22,7 +22,6 @@ public class DataClassDetector extends VoidVisitorAdapter<Void> {
     }
 
     private boolean isDataClass(ClassOrInterfaceDeclaration n) {
-
         for (MethodDeclaration method : n.getMethods()) {
             if (!justAGetterOrSetter(method)) {
                 return false;
@@ -36,17 +35,15 @@ public class DataClassDetector extends VoidVisitorAdapter<Void> {
         if (method.getParameters().size() > 1) {
             return false;
         }
-        StatementCounter sc = new StatementCounter();
-        method.accept(sc, null);
-        int statementCount = sc.getCount();
-        MethodCallCounter ec = new MethodCallCounter();
-        method.accept(ec, null);
-        int expressionCount = ec.getCount();
-        if (expressionCount + statementCount > 1) {
-            return false;
-        }
 
-        return true;
+        StatementCounter sc = new StatementCounter();
+        MethodCallCounter mcc = new MethodCallCounter();
+        method.accept(sc, null);
+        method.accept(mcc, null);
+
+        int statementCount = sc.getCount();
+        int methodCallCount = mcc.getCount();
+        return methodCallCount + statementCount <= 1;
     }
 
     class MethodCallCounter extends VoidVisitorAdapter<Void> {

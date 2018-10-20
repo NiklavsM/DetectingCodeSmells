@@ -8,23 +8,24 @@ import java.util.LinkedList;
 
 public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
 
-    private LinkedList<String> messageChanins = new LinkedList<String>();
+    private LinkedList<String> messageChains = new LinkedList<>();
+
     @Override
     public void visit(MethodCallExpr n, Void args) {
-        if (countMethodChain(n) > 2 && notPresent(n.toString())) {
-            System.out.println("MethodChain detected : " + n.toString());
-            messageChanins.add(n.toString());
+        if (countMessageChain(n) > 2 && notPresent(n.toString())) {
+            System.out.println("MessageChain detected : " + n.toString());
+            messageChains.add(n.toString());
         }
         super.visit(n, args);
     }
 
-    private int countMethodChain(MethodCallExpr n) {
+    private int countMessageChain(MethodCallExpr n) {
 
         int count = 1;
         for (Node child : n.getChildNodes()) {
             if (child instanceof MethodCallExpr) {
                 if (notArgument(n.getArguments(), child.toString())) {
-                    count += countMethodChain((MethodCallExpr) child);
+                    count += countMessageChain((MethodCallExpr) child);
                 }
             }
         }
@@ -38,9 +39,9 @@ public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
         return true;
     }
 
-    private boolean notPresent(String potentialChain){
-        for(String chain: messageChanins){
-            if(chain.contains(potentialChain)) return false;
+    private boolean notPresent(String potentialChain) {
+        for (String chain : messageChains) {
+            if (chain.contains(potentialChain)) return false;
         }
         return true;
     }

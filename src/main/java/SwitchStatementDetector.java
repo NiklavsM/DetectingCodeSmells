@@ -11,8 +11,8 @@ public class SwitchStatementDetector extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(SwitchStmt n, Void args) {
         Optional<Node> parent = n.getParentNode();
-        String variableName = n.getSelector().toString();
         if (parent.isPresent()) {
+            String variableName = n.getSelector().toString();
             if (isEnum(parent.get(), variableName)) {
                 System.out.println("Should not be switching on enum \"" + variableName + "\"");
             }

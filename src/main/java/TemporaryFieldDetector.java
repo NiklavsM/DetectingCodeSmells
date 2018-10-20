@@ -1,10 +1,8 @@
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 import java.util.List;
-import java.util.Optional;
 
 public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
 
@@ -12,11 +10,10 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
     public void visit(ClassOrInterfaceDeclaration n, Void args) {
         for (FieldDeclaration field : n.getFields()) {
             if (!field.isStatic()) {
-                for (VariableDeclarator variable : field.getVariables()) {
-                    checkIfTemporaryField(n, variable);
-                }
+                field.getVariables().forEach(variable -> checkIfTemporaryField(n, variable));
             }
         }
+
         super.visit(n, args);
     }
 
@@ -27,9 +24,9 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
             int timesUsed = afu.getFieldUsedInMethods();
             if (timesUsed < 2) {
                 if (timesUsed == 1) {
-                    System.out.println("Field : " + field.getName() + " could be turned into local variable (Temporary field)");
+                    System.out.println("Field : \"" + field.getName() + "\" could be turned into local variable (Temporary field)");
                 } else {
-                    System.out.println("Field : " + field.getName() + " is not used");
+                    System.out.println("Field : \"" + field.getName() + "\" is not used");
                 }
 
             }
@@ -48,18 +45,16 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
 
         @Override
         public void visit(MethodDeclaration n, Void args) {
-            Optional<BlockStmt> body = n.getBody();
-            if (body.isPresent()) {
-                if (fieldUsed(body.get().getChildNodes())) {
-                    fieldUsedInMethods++;
-                }
-
+            if (fieldUsed(n.getChildNodes())) {
+                fieldUsedInMethods++;
             }
+            super.visit(n, args);
         }
 
         @Override
         public void visit(ConstructorDeclaration n, Void args) {
             usedInConstructor = fieldUsed(n.getChildNodes());
+            super.visit(n, args);
         }
 
         private boolean usedInConstructor() {

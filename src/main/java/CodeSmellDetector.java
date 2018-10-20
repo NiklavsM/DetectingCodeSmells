@@ -9,7 +9,6 @@ class CodeSmellDetector {
     void run() {
         File dir = new File("C:/Users/Niklavs/Documents/IntelliJProjects/CS409TestSystem/src");
 //        File oneFile = new File("C:\\Users\\Niklavs\\Documents\\IntelliJProjects\\CodeSmellDetector\\src\\main\\java\\SupportClasses\\JavaClassExampleMAIN.java");
-        File oneFile = new File("C:/Users/Niklavs/Documents/IntelliJProjects/CS409TestSystem/src/Couplers/MessageChainsBetter/Client.java");
 
         try {
             parseFilesInDir(dir);
@@ -34,21 +33,24 @@ class CodeSmellDetector {
     }
 
     private void parseFile(File file) throws FileNotFoundException {
-        System.out.println("===================================");
+        System.out.println("================================================");
         System.out.println("File being analysed: " + file.getName());
-        System.out.println("-----------------------------------");
+        System.out.println("------------------------------------------------");
         searchForSmells(JavaParser.parse(file));
-        System.out.println("===================================");
+        System.out.println("================================================");
 
     }
 
     private void searchForSmells(CompilationUnit cu) {
-//        cu.accept(new LongMethodDetector(), null);
-//        cu.accept(new LargeClassBasicDetector(), null);
-//        cu.accept(new LongParameterListDetector(), null);
-//        cu.accept(new SwitchStatementDetector(), null);
+        cu.accept(new LongMethodDetector(), null);
+        cu.accept(new LargeClassBasicDetector(), null);
+        cu.accept(new LongParameterListDetector(), null);
+        cu.accept(new SwitchStatementDetector(), null);
         cu.accept(new DataClassDetector(), null);
-//        cu.accept(new PrimitiveObsessionDetector(), null);
-//        cu.accept(new MessageChainsDetector(), null);
+        cu.accept(new PrimitiveObsessionDetector(), null);
+        cu.accept(new MessageChainsDetector(), null);
+        cu.accept(new TemporaryFieldDetector(), null);
+        cu.accept(new LazyClassDetector(), null);
+        cu.accept(new LargeClassAdvancedDetector(), null);
     }
 }
