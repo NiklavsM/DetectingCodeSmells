@@ -107,9 +107,16 @@ public class StatementCounter extends VoidVisitorAdapter<Void> {
         count++;
         super.visit(n, args);
     }
+
     @Override
     public void visit(AssertStmt n, Void args) {
 //        System.out.println("AssertStmt : " + n.getClass().getName());
+        count++;
+        super.visit(n, args);
+    }
+
+    public void visit(ExplicitConstructorInvocationStmt n, Void args) {
+//        System.out.println("ExplicitConstructorInvocationStmt : " + n.getClass().getName());
         count++;
         super.visit(n, args);
     }

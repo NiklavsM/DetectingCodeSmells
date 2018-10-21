@@ -20,23 +20,21 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
     private void checkIfTemporaryField(ClassOrInterfaceDeclaration n, VariableDeclarator field) {
         AnalyseFieldUsage afu = new AnalyseFieldUsage(field);
         n.accept(afu, null);
-        if (!afu.usedInConstructor()) {
-            int timesUsed = afu.getFieldUsedInMethods();
-            if (timesUsed < 2) {
-                if (timesUsed == 1) {
-                    System.out.println("Field : \"" + field.getName() + "\" could be turned into local variable (Temporary field)");
-                } else {
-                    System.out.println("Field : \"" + field.getName() + "\" is not used");
-                }
-
+        int timesUsed = afu.getFieldUsedInMethods() + afu.usedInConstructors();
+        if (timesUsed < 2) {
+            if (timesUsed == 1) {
+                System.out.println("Field: \"" + field.getName() + "\" could be turned into local variable (Temporary field)");
+            } else {
+                System.out.println("Field: \"" + field.getName() + "\" is not used");
             }
+
         }
     }
 
     class AnalyseFieldUsage extends VoidVisitorAdapter<Void> {
 
-        private int fieldUsedInMethods = 0;
-        private boolean usedInConstructor = false;
+        private int usedInMethods = 0;
+        private int usedInConstructors = 0;
         private VariableDeclarator field;
 
         AnalyseFieldUsage(VariableDeclarator f) {
@@ -46,23 +44,25 @@ public class TemporaryFieldDetector extends VoidVisitorAdapter<Void> {
         @Override
         public void visit(MethodDeclaration n, Void args) {
             if (fieldUsed(n.getChildNodes())) {
-                fieldUsedInMethods++;
+                usedInMethods++;
             }
             super.visit(n, args);
         }
 
         @Override
         public void visit(ConstructorDeclaration n, Void args) {
-            usedInConstructor = fieldUsed(n.getChildNodes());
+            if (fieldUsed(n.getChildNodes())) {
+                usedInConstructors++;
+            }
             super.visit(n, args);
         }
 
-        private boolean usedInConstructor() {
-            return usedInConstructor;
+        private int usedInConstructors() {
+            return usedInConstructors;
         }
 
         private int getFieldUsedInMethods() {
-            return fieldUsedInMethods;
+            return usedInMethods;
         }
 
         private boolean fieldUsed(List<Node> children) {
