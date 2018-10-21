@@ -13,7 +13,7 @@ public class MessageChainsDetector extends VoidVisitorAdapter<Void> {
     @Override
     public void visit(MethodCallExpr n, Void args) {
         if (countMessageChain(n) > 2 && notPresent(n.toString())) {
-            System.out.println("MessageChain detected : " + n.toString());
+            System.out.println("MessageChain detected: " + n.toString());
             messageChains.add(n.toString());
         }
         super.visit(n, args);

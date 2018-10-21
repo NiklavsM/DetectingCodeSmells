@@ -17,11 +17,6 @@ public class BusynessScorer {
         score += classToScore.getImplementedTypes().size() * INTERFACE_W;
         score += classToScore.getFields().size() * FIELD_W;
         score += countStatements(classToScore) * STATEMENT_W;
-//        System.out.println("METHOD_W : " + classToScore.getMethods().size() * METHOD_W);
-//        System.out.println("STATEMENT_W : " + countStatements(classToScore) * STATEMENT_W);
-//        System.out.println("CONSTRUCTOR_W : " + classToScore.getConstructors().size() * CONSTRUCTOR_W);
-//        System.out.println("INTERFACE_W : " + classToScore.getImplementedTypes().size() * INTERFACE_W);
-//        System.out.println("FIELD_W : " + classToScore.getFields().size() * FIELD_W);
         return score;
     }
 
